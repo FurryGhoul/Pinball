@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleTextures.h"
 #include "ModulePhysics.h"
 #include "p2Point.h"
 #include "math.h"
@@ -31,6 +32,7 @@ bool ModulePhysics::Start()
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	world->SetContactListener(this);
 
+
 	// needed to create joints like mouse joint
 	b2BodyDef bd;
 	ground = world->CreateBody(&bd);
@@ -39,19 +41,56 @@ bool ModulePhysics::Start()
 	int x = SCREEN_WIDTH / 2;
 	int y = SCREEN_HEIGHT / 1.5f;
 	int diameter = SCREEN_WIDTH / 2;
+	
+	int PinBall_Board[14] = {
+		477, 872,
+		507, 874,
+		507, 17,
+		25, 17,
+		27, 871,
+		467, 871,
+		477, 872
+	};
 
-	b2BodyDef body;
-	body.type = b2_staticBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	CreateChain(-25, -17, PinBall_Board, 13, b2_staticBody);
 
-	b2Body* big_ball = world->CreateBody(&body);
+	int PinBall_Right_Part[64] = {
+		477, 872,
+		349, 872,
+		475, 788,
+		475, 618,
+		472, 607,
+		463, 597,
+		453, 587,
+		445, 576,
+		444, 565,
+		446, 557,
+		451, 548,
+		456, 543,
+		461, 536,
+		460, 527,
+		456, 500,
+		445, 466,
+		444, 456,
+		448, 447,
+		454, 440,
+		454, 431,
+		447, 422,
+		439, 414,
+		433, 400,
+		437, 378,
+		441, 357,
+		446, 332,
+		452, 303,
+		471, 217,
+		480, 188,
+		480, 344,
+		480, 643,
+		480, 873
+	};
 
-	b2CircleShape shape;
-	shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
+	CreateChain(-25, -17, PinBall_Right_Part, 63, b2_staticBody);
 
-	b2FixtureDef fixture;
-	fixture.shape = &shape;
-	big_ball->CreateFixture(&fixture);
 
 	return true;
 }
@@ -151,10 +190,10 @@ PhysBody* ModulePhysics::CreateRectangleSensor(int x, int y, int width, int heig
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
+PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size, b2BodyType type)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = type;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
