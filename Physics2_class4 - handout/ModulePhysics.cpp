@@ -91,7 +91,34 @@ bool ModulePhysics::Start()
 
 	CreateChain(-25, -17, PinBall_Right_Part, 63, b2_staticBody);
 
+	int right_flipper[18] = {
+		54, 2,
+		1, 43,
+		1, 49,
+		4, 53,
+		12, 53,
+		69, 19,
+		69, 10,
+		62, 2,
+		54, 2
+	};
 
+	CreateChain(250, 790, right_flipper, 63, b2_staticBody);
+
+	int left_flipper[20] = {
+		9, 2,
+		16, 2,
+		61, 37,
+		70, 45,
+		69, 50,
+		65, 53,
+		58, 53,
+		1, 19,
+		1, 8,
+		9, 2
+	};
+
+	CreateChain(140, 790, left_flipper, 63, b2_staticBody);
 	return true;
 }
 
