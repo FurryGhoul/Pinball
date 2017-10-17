@@ -29,6 +29,8 @@ bool ModuleSceneIntro::Start()
 	box = App->textures->Load("pinball/crate.png");
 	rick = App->textures->Load("pinball/rick_head.png");
 	BackGround= App->textures->Load("pinball/PinBall_Board.png");
+	RightFlipper = App->textures->Load("pinball/right flipper.png");
+	LeftFlipper = App->textures->Load("pinball/left flipper.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
@@ -48,6 +50,8 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(BackGround, 0, 0, NULL);
+	//App->renderer->Blit(RightFlipper, 250, 790, NULL);
+	//App->renderer->Blit(LeftFlipper, 0, 0, NULL);
 
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
@@ -106,6 +110,35 @@ update_status ModuleSceneIntro::Update()
 		};
 
 		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64,b2_dynamicBody));
+
+		int right_flipper[18] = {
+			54, 2,
+			1, 43,
+			1, 49,
+			4, 53,
+			12, 53,
+			69, 19,
+			69, 10,
+			62, 2,
+			54, 2
+		};
+
+		rightflipper.add(App->physics->CreateChain(250, 790, right_flipper, 17, b2_staticBody));
+
+		int left_flipper[20] = {
+			9, 2,
+			16, 2,
+			61, 37,
+			70, 45,
+			69, 50,
+			65, 53,
+			58, 53,
+			1, 19,
+			1, 8,
+			9, 2
+		};
+
+		leftflipper.add(App->physics->CreateChain(140, 790, left_flipper, 19, b2_staticBody));
 	}
 
 	// Prepare for raycast ------------------------------------------------------
@@ -152,6 +185,26 @@ update_status ModuleSceneIntro::Update()
 		int x, y;
 		c->data->GetPosition(x, y);
 		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
+		c = c->next;
+	}
+
+	c = leftflipper.getFirst();
+
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		App->renderer->Blit(LeftFlipper, x, y, NULL, 1.0f, c->data->GetRotation());
+		c = c->next;
+	}
+
+	c = rightflipper.getFirst();
+
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		App->renderer->Blit(RightFlipper, x, y, NULL, 1.0f, c->data->GetRotation());
 		c = c->next;
 	}
 

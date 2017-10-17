@@ -21,6 +21,8 @@ public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
+	p2List<PhysBody*> leftflipper;
+	p2List<PhysBody*> rightflipper;
 
 	PhysBody* sensor;
 	bool sensed;
@@ -29,6 +31,8 @@ public:
 	SDL_Texture* box;
 	SDL_Texture* rick;
 	SDL_Texture* BackGround;
+	SDL_Texture* RightFlipper;
+	SDL_Texture* LeftFlipper;
 	uint bonus_fx;
 	p2Point<int> ray;
 	bool ray_on;
