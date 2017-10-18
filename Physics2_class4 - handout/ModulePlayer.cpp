@@ -34,12 +34,12 @@ update_status ModulePlayer::Update()
 {
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		App->scene_intro->leftflipper->body->ApplyAngularImpulse(-10.0f,false);
+		App->scene_intro->leftflipper->body->ApplyAngularImpulse(-5.0f,true);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
 	{
-		App->scene_intro->rightflipper->body->ApplyAngularImpulse(10.0f, true);
+		App->scene_intro->rightflipper->body->ApplyAngularImpulse(5.0f, true);
 	}
 
 	return UPDATE_CONTINUE;
