@@ -25,8 +25,6 @@ bool ModuleSceneIntro::Start()
 
 	b2RevoluteJointDef def_1;
 	b2RevoluteJointDef def_2;
-	b2RevoluteJoint* joint_1;
-	b2RevoluteJoint* joint_2;
 
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
