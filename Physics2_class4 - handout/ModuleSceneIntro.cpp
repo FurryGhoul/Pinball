@@ -23,6 +23,11 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
+	b2RevoluteJointDef def_1;
+	b2RevoluteJointDef def_2;
+	b2RevoluteJoint* joint_1;
+	b2RevoluteJoint* joint_2;
+
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 
 	circle = App->textures->Load("pinball/wheel.png"); 
@@ -34,6 +39,38 @@ bool ModuleSceneIntro::Start()
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
+
+	int right_flipper[18] = {
+		54, 2,
+		1, 43,
+		1, 49,
+		4, 53,
+		12, 53,
+		69, 19,
+		69, 10,
+		62, 2,
+		54, 2
+	};
+
+	rightflipper=App->physics->CreateChain(250, 790, right_flipper, 17, b2_dynamicBody);
+
+	
+	leftflipper=App->physics->CreateRectangle(140+42, 790+13, 77,14, b2_dynamicBody);
+
+	l_flipper_joint =App->physics->CreateCircle(144+9, 800+3, 5, b2_staticBody);
+	r_flipper_joint =App->physics->CreateCircle(300 + 7, 800 + 3, 5, b2_staticBody);
+
+	def_1.Initialize(l_flipper_joint->body, leftflipper->body, l_flipper_joint->body->GetWorldCenter());
+	/*def_1.bodyA = l_flipper_joint->body;
+	def_1.bodyB = leftflipper->body;
+	def_1.collideConnected = false;
+	def_1.localAnchorA.Set(0,0);
+	def_1.localAnchorB.Set(PIXEL_TO_METERS(12), PIXEL_TO_METERS(11));
+	def_1.referenceAngle = 0;*/
+
+	joint_1 = (b2RevoluteJoint*)App->physics->world->CreateJoint(&def_1);
+
+
 
 	return ret;
 }
@@ -62,13 +99,13 @@ update_status ModuleSceneIntro::Update()
 
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25));
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 25, b2_dynamicBody));
 		circles.getLast()->data->listener = this;
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
-		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50));
+		boxes.add(App->physics->CreateRectangle(App->input->GetMouseX(), App->input->GetMouseY(), 100, 50,b2_dynamicBody));
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
@@ -110,35 +147,7 @@ update_status ModuleSceneIntro::Update()
 		};
 
 		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64,b2_dynamicBody));
-
-		int right_flipper[18] = {
-			54, 2,
-			1, 43,
-			1, 49,
-			4, 53,
-			12, 53,
-			69, 19,
-			69, 10,
-			62, 2,
-			54, 2
-		};
-
-		rightflipper.add(App->physics->CreateChain(250, 790, right_flipper, 17, b2_staticBody));
-
-		int left_flipper[20] = {
-			9, 2,
-			16, 2,
-			61, 37,
-			70, 45,
-			69, 50,
-			65, 53,
-			58, 53,
-			1, 19,
-			1, 8,
-			9, 2
-		};
-
-		leftflipper.add(App->physics->CreateChain(140, 790, left_flipper, 19, b2_staticBody));
+	
 	}
 
 	// Prepare for raycast ------------------------------------------------------
@@ -188,24 +197,21 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	c = leftflipper.getFirst();
+	
 
-	while (c != NULL)
+	if (leftflipper != NULL)
 	{
 		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(LeftFlipper, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
+		leftflipper->GetPosition(x, y);
+		App->renderer->Blit(LeftFlipper, x, y, NULL, 1.0f, leftflipper->GetRotation());
 	}
 
-	c = rightflipper.getFirst();
 
-	while (c != NULL)
+	if (rightflipper != NULL)
 	{
 		int x, y;
-		c->data->GetPosition(x, y);
-		App->renderer->Blit(RightFlipper, x, y, NULL, 1.0f, c->data->GetRotation());
-		c = c->next;
+		rightflipper->GetPosition(x, y);
+		App->renderer->Blit(RightFlipper, x, y, NULL, 1.0f, rightflipper->GetRotation());
 	}
 
 	// ray -----------------

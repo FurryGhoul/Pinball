@@ -18,11 +18,13 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 
 public:
-	p2List<PhysBody*> circles;
-	p2List<PhysBody*> boxes;
-	p2List<PhysBody*> ricks;
-	p2List<PhysBody*> leftflipper;
-	p2List<PhysBody*> rightflipper;
+	p2List<PhysBody*>	circles;
+	p2List<PhysBody*>	boxes;
+	p2List<PhysBody*>	ricks;
+	PhysBody*			leftflipper;
+	PhysBody*			rightflipper;
+	PhysBody*			l_flipper_joint;
+	PhysBody*			r_flipper_joint;
 
 	PhysBody* sensor;
 	bool sensed;
