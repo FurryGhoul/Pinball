@@ -38,21 +38,25 @@ bool ModuleSceneIntro::Start()
 	LeftFlipper = App->textures->Load("pinball/left flipper.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
-	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
+	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
 
 	
 	rightflipper = App->physics->CreateRectangle(250+30, 790+13, 77,14, b2_dynamicBody);
-	leftflipper=App->physics->CreateRectangle(140+42, 790+13, 77,14, b2_dynamicBody);
+	leftflipper=App->physics->CreateRectangle(140+41, 790+13, 77,14, b2_dynamicBody);
 
 	l_flipper_joint =App->physics->CreateCircle(144+9, 800+3, 5, b2_staticBody);
 	r_flipper_joint =App->physics->CreateCircle(300 + 7, 800 + 3, 5, b2_staticBody);
 
-	def_1.Initialize(l_flipper_joint->body, leftflipper->body, l_flipper_joint->body->GetWorldCenter());
+	def_1.Initialize(leftflipper->body, l_flipper_joint->body, l_flipper_joint->body->GetWorldCenter());
 	def_2.Initialize(r_flipper_joint->body, rightflipper->body, r_flipper_joint->body->GetWorldCenter());
+	
 	def_1.enableLimit = true;
 	def_2.enableLimit = true;
-	def_1.lowerAngle = 30 * DEGTORAD;
+	
+	def_1.lowerAngle = -30 * DEGTORAD;
+	def_1.upperAngle = 30 * DEGTORAD;
 	def_2.lowerAngle = -30 * DEGTORAD;
+	def_2.upperAngle = 30 * DEGTORAD;
 
 	joint_1 = (b2RevoluteJoint*)App->physics->world->CreateJoint(&def_1);
 	joint_2 = (b2RevoluteJoint*)App->physics->world->CreateJoint(&def_2);

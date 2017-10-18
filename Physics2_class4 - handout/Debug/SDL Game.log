@@ -1,10 +1,10 @@
 ﻿  ModuleSceneIntro.cpp
-c:\users\marcgiu\documents\pinball\physics2_class4 - handout\modulesceneintro.cpp(205): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marcgiu\documents\pinball\physics2_class4 - handout\modulesceneintro.cpp(207): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\marcgiu\documents\pinball\physics2_class4 - handout\modulesceneintro.cpp(209): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\marcgiu\documents\pinball\physics2_class4 - handout\modulesceneintro.cpp(212): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\marcgiu\documents\pinball\physics2_class4 - handout\modulesceneintro.cpp(220): warning C4101: 'y': unreferenced local variable
-c:\users\marcgiu\documents\pinball\physics2_class4 - handout\modulesceneintro.cpp(220): warning C4101: 'x': unreferenced local variable
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\limits(210): warning C4577: 'noexcept' used with no exception handling mode specified; termination on exception is not guaranteed. Specify /EHsc
-  SDL Game.vcxproj -> C:\Users\marcgiu\Documents\Pinball\Physics2_class4 - handout\Debug\2D Physics - class 4.exe
-  SDL Game.vcxproj -> C:\Users\marcgiu\Documents\Pinball\Physics2_class4 - handout\Debug\2D Physics - class 4.pdb (Full PDB)
+c:\users\marcgiu\documents\github\pinball\physics2_class4 - handout\modulesceneintro.cpp(209): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\marcgiu\documents\github\pinball\physics2_class4 - handout\modulesceneintro.cpp(211): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\marcgiu\documents\github\pinball\physics2_class4 - handout\modulesceneintro.cpp(213): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\marcgiu\documents\github\pinball\physics2_class4 - handout\modulesceneintro.cpp(216): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\marcgiu\documents\github\pinball\physics2_class4 - handout\modulesceneintro.cpp(224): warning C4101: 'y': unreferenced local variable
+c:\users\marcgiu\documents\github\pinball\physics2_class4 - handout\modulesceneintro.cpp(224): warning C4101: 'x': unreferenced local variable
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\limits(211): warning C4577: 'noexcept' used with no exception handling mode specified; termination on exception is not guaranteed. Specify /EHsc
+  SDL Game.vcxproj -> C:\Users\marcgiu\Documents\GitHub\Pinball\Physics2_class4 - handout\Debug\2D Physics - class 4.exe
+  SDL Game.vcxproj -> C:\Users\marcgiu\Documents\GitHub\Pinball\Physics2_class4 - handout\Debug\2D Physics - class 4.pdb (Partial PDB)
