@@ -40,37 +40,22 @@ bool ModuleSceneIntro::Start()
 
 	sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
 
-	int right_flipper[18] = {
-		54, 2,
-		1, 43,
-		1, 49,
-		4, 53,
-		12, 53,
-		69, 19,
-		69, 10,
-		62, 2,
-		54, 2
-	};
-
-	rightflipper=App->physics->CreateChain(250, 790, right_flipper, 17, b2_dynamicBody);
-
 	
+	rightflipper = App->physics->CreateRectangle(250+30, 790+13, 77,14, b2_dynamicBody);
 	leftflipper=App->physics->CreateRectangle(140+42, 790+13, 77,14, b2_dynamicBody);
 
 	l_flipper_joint =App->physics->CreateCircle(144+9, 800+3, 5, b2_staticBody);
 	r_flipper_joint =App->physics->CreateCircle(300 + 7, 800 + 3, 5, b2_staticBody);
 
 	def_1.Initialize(l_flipper_joint->body, leftflipper->body, l_flipper_joint->body->GetWorldCenter());
-	/*def_1.bodyA = l_flipper_joint->body;
-	def_1.bodyB = leftflipper->body;
-	def_1.collideConnected = false;
-	def_1.localAnchorA.Set(0,0);
-	def_1.localAnchorB.Set(PIXEL_TO_METERS(12), PIXEL_TO_METERS(11));
-	def_1.referenceAngle = 0;*/
+	def_2.Initialize(r_flipper_joint->body, rightflipper->body, r_flipper_joint->body->GetWorldCenter());
+	def_1.enableLimit = true;
+	def_2.enableLimit = true;
+	def_1.lowerAngle = 30 * DEGTORAD;
+	def_2.lowerAngle = -30 * DEGTORAD;
 
 	joint_1 = (b2RevoluteJoint*)App->physics->world->CreateJoint(&def_1);
-
-
+	joint_2 = (b2RevoluteJoint*)App->physics->world->CreateJoint(&def_2);
 
 	return ret;
 }
