@@ -27,6 +27,19 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+<<<<<<< HEAD
+=======
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	{
+		App->scene_intro->leftflipper->body->ApplyAngularImpulse(-5.0f,true);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+	{
+		App->scene_intro->rightflipper->body->ApplyAngularImpulse(5.0f, true);
+	}
+
+>>>>>>> 5513f88c68895c0dd9d1c5a6de48789bd2238af1
 	return UPDATE_CONTINUE;
 }
 
