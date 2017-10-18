@@ -5,6 +5,7 @@
 #include "Globals.h"
 
 class PhysBody;
+class b2RevoluteJoint;
 
 class ModuleSceneIntro : public Module
 {
@@ -30,6 +31,9 @@ public:
 
 	PhysBody* sensor;
 	bool sensed;
+
+	b2RevoluteJoint* joint_1;
+	b2RevoluteJoint* joint_2;
 
 	SDL_Texture* circle;
 	SDL_Texture* box;
