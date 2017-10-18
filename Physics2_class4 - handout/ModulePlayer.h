@@ -2,7 +2,6 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
-#include "ModuleInput.h"
 
 class ModulePlayer : public Module
 {
