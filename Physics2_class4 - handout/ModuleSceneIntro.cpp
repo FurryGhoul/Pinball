@@ -36,11 +36,41 @@ bool ModuleSceneIntro::Start()
 	BackGround= App->textures->Load("pinball/PinBall_Board.png");
 	RightFlipper = App->textures->Load("pinball/right flipper.png");
 	LeftFlipper = App->textures->Load("pinball/left flipper.png");
+	RightBouncer = App->textures->Load("pinball/right block.png");
+	LeftBouncer = App->textures->Load("pinball/left block.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	//sensor = App->physics->CreateRectangleSensor(SCREEN_WIDTH / 2, SCREEN_HEIGHT, SCREEN_WIDTH, 50);
 
-	
+	int left_bouncer[22] = {
+		11, 16,
+		11, 105,
+		53, 134,
+		56, 135,
+		62, 135,
+		69, 129,
+		69, 122,
+		32, 13,
+		28, 9,
+		17, 9,
+		11, 16,
+	};
+	leftbouncer.add(App->physics->CreateChain(51, 600, left_bouncer, 21, b2_staticBody));
+
+	int right_bouncer[20] = {
+		61, 9,
+		50, 9,
+		44, 15,
+		9, 123,
+		9, 129,
+		16, 135,
+		22, 135,
+		67, 106,
+		67, 16,
+		61, 9
+	};
+	rightbouncer.add(App->physics->CreateChain(325, 600, right_bouncer, 19, b2_staticBody));
+
 	rightflipper = App->physics->CreateRectangle(250+30, 790+13, 77,14, b2_dynamicBody);
 	leftflipper=App->physics->CreateRectangle(140+41, 790+13, 77,14, b2_dynamicBody);
 
@@ -186,7 +216,23 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	
+	c = leftbouncer.getFirst();
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		App->renderer->Blit(LeftBouncer, x, y, NULL, 1.0f, c->data->GetRotation());
+		c = c->next;
+	}
+
+	c = rightbouncer.getFirst();
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		App->renderer->Blit(RightBouncer, x, y, NULL, 1.0f, c->data->GetRotation());
+		c = c->next;
+	}
 
 	if (leftflipper != NULL)
 	{
